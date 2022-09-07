@@ -4,7 +4,7 @@ const PDFDocument = require("pdfkit-table");
 
 const sql_parser = require("./sql_parser");
 const yaml_parser = require("./yaml_parser");
-const fetch = require("./fetch");
+const fetch = require("./f2");
 const {
   create_table,
   create_bq_table,

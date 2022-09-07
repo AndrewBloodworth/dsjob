@@ -2,8 +2,8 @@ const axios = require("axios");
 
 module.exports = async (file_name, name_space) => {
   try {
-    //   require("dotenv").config();
-    const GITHUB_TOKEN = "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";
+    require("dotenv").config();
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const { data } = await axios.get(
       `https://api.github.com/repos/TriggerMail/${name_space}/contents/${file_name}?ref=master`,
       {

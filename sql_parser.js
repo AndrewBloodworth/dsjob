@@ -1,7 +1,7 @@
 const { Parser } = require("node-sql-parser");
 const parser = new Parser();
 const fs = require("fs");
-const fetch = require("./fetch");
+const fetch = require("./f2");
 module.exports = async (file_name, name_space) => {
   let text = await fetch(file_name, name_space);
   try {
