@@ -1,0 +1,9 @@
+events:
+  - event: patch
+    properties:
+      distinct_id: 'ann_taylor_inventory_feed_inventory'
+      products:
+        - id: '{{id}}'
+          inventory: {{inventory}}
+          out_of_stock: false
+      token: 'ann_taylor'

@@ -1,0 +1,22 @@
+{
+  "name": "auto_blueprint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node index.js GITHUB_TOKEN=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"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "js-yaml": "^4.1.0",
+    "node-sql-parser": "^4.4.0",
+    "nodemon": "^2.0.19",
+    "pdfkit": "^0.13.0",
+    "pdfkit-table": "^0.1.99"
+  }
+}
