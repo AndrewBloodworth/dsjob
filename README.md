@@ -1,9 +1,9 @@
-Main function is in index.js
-
 Install dependencies: `npm i`
 
-Provide GITHUB_TOKEN env
+Main function is in ts/index.ts
 
-Run the tool: `node index.js name_space`
+Provide GITHUB_TOKEN env inside ts folder
+
+Run the tool from root: `npm run build -- name_space`
 
 Output: `SampleDocument.pdf`
