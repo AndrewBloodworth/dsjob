@@ -1,0 +1,24 @@
+
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Node 16",
+  
+    "compilerOptions": {
+      "lib": ["ES6"],
+      "module": "CommonJS",
+      "noImplicitAny": true,
+      "target": "ES6",
+      //   "compilerOptions": {
+      //     "module": "nodenext",
+      // }
+    //   "types": ["node"],
+      "jsx": "react",
+      "typeRoots": ["./node_modules/@types"],
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "watch": true
+    }
+  }
