@@ -21,7 +21,6 @@ module.exports = (file_name, name_space) => __awaiter(void 0, void 0, void 0, fu
         return data;
     }
     catch (error) {
-        console.log(error);
         return "";
     }
 });

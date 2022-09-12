@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const yaml = require("js-yaml");
 const PDFDocument = require("pdfkit-table");
+const googleapis_1 = require("./googleapis");
 const fetch = require("./fetch/file_fetcher");
-const { build_doc } = require("../utils");
+const { build_doc, build_job } = require("./utils");
 const pipeline_steps = require("./pipeline/index");
 let pdfDoc = new PDFDocument({
     margins: {
@@ -27,13 +28,18 @@ let pdfDoc = new PDFDocument({
 pdfDoc.pipe(fs.createWriteStream("SampleDocument.pdf"));
 const name_space = process.argv[2];
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    const requests = [];
+    const api = new googleapis_1.GoogleAPI({
+        shared_folder_id: "1UUSX8xj-JGo6DM1z6YQ0-lQSFSl6sS14",
+    });
+    yield api.authenticate();
     const chrono_text = yield fetch("chrono.yaml", name_space);
     const obj = yaml.load(chrono_text);
     let meta_data = {};
     const chrono_jobs = obj["data_sync"];
     let i = 0;
     const low = -1;
-    const high = Infinity;
+    const high = 2;
     job_loop: for (const job of chrono_jobs) {
         const { name, description, pipeline, schedule, timezone } = job;
         console.log(`${++i} of ${chrono_jobs.length}`);
@@ -86,18 +92,31 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 yield pipeline_steps.mapper({ step, name_space, meta_data });
             }
         }
-        build_doc({
-            pdfDoc,
+        // build_doc({
+        //   pdfDoc,
+        //   meta_data,
+        //   name,
+        //   description,
+        //   schedule,
+        //   timezone,
+        //   current_idx: i - 1,
+        // });
+        requests.push(build_job({
+            api,
             meta_data,
             name,
             description,
             schedule,
             timezone,
             current_idx: i - 1,
-        });
+        }));
         meta_data = {};
         pdfDoc.addPage();
     }
     pdfDoc.end();
+    // console.log(
+    //   requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
+    // );
+    yield api.create_document("tester", requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r)));
 });
 main();

@@ -1,9 +1,10 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 const PDFDocument = require("pdfkit-table");
+import { GoogleAPI } from "./googleapis";
 
 const fetch = require("./fetch/file_fetcher");
-const { build_doc } = require("../utils");
+const { build_doc, build_job } = require("./utils");
 
 import { MetaData, PipelineSteps } from "./types";
 const pipeline_steps: PipelineSteps = require("./pipeline/index");
@@ -22,6 +23,12 @@ pdfDoc.pipe(fs.createWriteStream("SampleDocument.pdf"));
 const name_space = process.argv[2];
 
 const main = async () => {
+  const requests: any[] = [];
+  const api = new GoogleAPI({
+    shared_folder_id: "1UUSX8xj-JGo6DM1z6YQ0-lQSFSl6sS14",
+  });
+
+  await api.authenticate();
   const chrono_text = await fetch("chrono.yaml", name_space);
 
   const obj = yaml.load(chrono_text);
@@ -30,7 +37,7 @@ const main = async () => {
   const chrono_jobs = obj["data_sync"];
   let i = 0;
   const low = -1;
-  const high = Infinity;
+  const high = 2;
   job_loop: for (const job of chrono_jobs) {
     const { name, description, pipeline, schedule, timezone } = job;
 
@@ -75,19 +82,38 @@ const main = async () => {
       }
     }
 
-    build_doc({
-      pdfDoc,
-      meta_data,
-      name,
-      description,
-      schedule,
-      timezone,
-      current_idx: i - 1,
-    });
+    // build_doc({
+    //   pdfDoc,
+    //   meta_data,
+    //   name,
+    //   description,
+    //   schedule,
+    //   timezone,
+    //   current_idx: i - 1,
+    // });
+    requests.push(
+      build_job({
+        api,
+        meta_data,
+        name,
+        description,
+        schedule,
+        timezone,
+        current_idx: i - 1,
+      })
+    );
     meta_data = {};
     pdfDoc.addPage();
   }
   pdfDoc.end();
+
+  // console.log(
+  //   requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
+  // );
+  await api.create_document(
+    "tester",
+    requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
+  );
 };
 
 main();
