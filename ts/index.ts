@@ -37,12 +37,14 @@ const main = async () => {
   const chrono_jobs = obj["data_sync"];
   let i = 0;
   const low = -1;
-  const high = 2;
+  const high = Infinity;
   job_loop: for (const job of chrono_jobs) {
     const { name, description, pipeline, schedule, timezone } = job;
 
     console.log(`${++i} of ${chrono_jobs.length}`);
+
     if (i < low || i > high) continue job_loop;
+
     for (const step of pipeline) {
       if (step.hasOwnProperty("bigquery_query")) {
         await pipeline_steps.bigquery_query!({
@@ -103,15 +105,15 @@ const main = async () => {
       })
     );
     meta_data = {};
-    pdfDoc.addPage();
+    // pdfDoc.addPage();
   }
-  pdfDoc.end();
+  // pdfDoc.end();
 
   // console.log(
   //   requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
   // );
   await api.create_document(
-    "tester",
+    name_space,
     requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
   );
 };

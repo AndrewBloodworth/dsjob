@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 module.exports = {
-    bigquery_query: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require('./bigquery_query')(data); }),
-    standardsql_query: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require('./standardsql_query')(data); }),
-    ftp_put: (data) => require('./ftp_put')(data),
-    ftp_get: (data) => require('./ftp_get')(data),
-    encrypt: (data) => require('./encrypt')(data),
-    decrypt: (data) => require('./decrypt')(data),
-    reduce_to_delta: (data) => require('./decrypt')(data),
-    python_transform: (data) => require('./python_transform')(data),
-    bigquery_put: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require('./bigquery_put')(data); }),
-    mapper: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require('./mapper')(data); }),
+    bigquery_query: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require("./bigquery_query")(data); }),
+    standardsql_query: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require("./standardsql_query")(data); }),
+    ftp_put: (data) => require("./ftp_put")(data),
+    ftp_get: (data) => require("./ftp_get")(data),
+    encrypt: (data) => require("./encrypt")(data),
+    decrypt: (data) => require("./decrypt")(data),
+    reduce_to_delta: (data) => require("./reduce_to_delta")(data),
+    python_transform: (data) => require("./python_transform")(data),
+    bigquery_put: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require("./bigquery_put")(data); }),
+    mapper: (data) => __awaiter(void 0, void 0, void 0, function* () { return yield require("./mapper")(data); }),
 };

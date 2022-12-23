@@ -492,11 +492,12 @@ export = {
                   text: header.label,
                   style: "bold",
                 })),
+                endOfTable: false,
               }),
               datas.flatMap((row, index, { length }) => {
                 return api.insertTableRow({
                   data: headers.map(({ property }) => ({
-                    text: row[property].label,
+                    text: row[property].label || "null",
                     style: "none",
                   })),
                   endOfTable: index + 1 === length,

@@ -1,3 +1,5 @@
+import { GoogleAPI } from "./googleapis";
+
 export interface TableData {
   headers: TableHeader[];
   datas: any[];

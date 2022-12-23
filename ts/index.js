@@ -39,7 +39,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const chrono_jobs = obj["data_sync"];
     let i = 0;
     const low = -1;
-    const high = 2;
+    const high = Infinity;
     job_loop: for (const job of chrono_jobs) {
         const { name, description, pipeline, schedule, timezone } = job;
         console.log(`${++i} of ${chrono_jobs.length}`);
@@ -111,12 +111,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             current_idx: i - 1,
         }));
         meta_data = {};
-        pdfDoc.addPage();
+        // pdfDoc.addPage();
     }
-    pdfDoc.end();
+    // pdfDoc.end();
     // console.log(
     //   requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r))
     // );
-    yield api.create_document("tester", requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r)));
+    yield api.create_document(name_space, requests.flatMap((r) => (Array.isArray(r) ? r.flatMap((r) => r) : r)));
 });
 main();
